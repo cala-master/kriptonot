@@ -22,7 +22,8 @@ const requiredDocs = [
   "docs/manual-validation/milestone-01-repo-bootstrap.md",
   "docs/manual-validation/milestone-02-domain-contracts.md",
   "docs/manual-validation/milestone-03-storage-flow.md",
-  "docs/manual-validation/milestone-04-masked-reveal-flow.md"
+  "docs/manual-validation/milestone-04-masked-reveal-flow.md",
+  "docs/manual-validation/milestone-05-empty-shell.md"
 ];
 
 for (const docPath of requiredDocs) {

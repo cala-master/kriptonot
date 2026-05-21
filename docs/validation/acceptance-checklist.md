@@ -6,3 +6,4 @@
 - Contract and integration tests run locally.
 - Manual validation runbooks exist for bootstrap and milestones.
 - MVP exclusions are documented in requirements and constitution files.
+- The desktop app workspace is runnable and its bootstrap status is visible.

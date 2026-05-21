@@ -12,7 +12,12 @@ for (const scriptName of [
   "test",
   "test:contracts",
   "test:integration",
-  "manual:bootstrap"
+  "manual:bootstrap",
+  "app:dev",
+  "app:build",
+  "app:typecheck",
+  "app:tauri:dev",
+  "app:tauri:build"
 ]) {
   assert.ok(rootPackageJson.scripts[scriptName], `Missing root script: ${scriptName}`);
 }
@@ -35,6 +40,31 @@ const expectedPackages = new Map([
 for (const [path, expectedName] of expectedPackages) {
   const packageJson = JSON.parse(readFileSync(path, "utf8"));
   assert.equal(packageJson.name, expectedName, `Unexpected package name in ${path}`);
+}
+
+const desktopPackageJson = JSON.parse(readFileSync("apps/desktop/package.json", "utf8"));
+
+for (const scriptName of ["dev", "build", "typecheck", "tauri"]) {
+  assert.ok(desktopPackageJson.scripts[scriptName], `Missing desktop script: ${scriptName}`);
+}
+
+for (const dependencyName of ["react", "react-dom", "@tauri-apps/api"]) {
+  assert.ok(
+    desktopPackageJson.dependencies?.[dependencyName],
+    `Missing desktop dependency: ${dependencyName}`
+  );
+}
+
+for (const dependencyName of [
+  "vite",
+  "typescript",
+  "@vitejs/plugin-react",
+  "@tauri-apps/cli"
+]) {
+  assert.ok(
+    desktopPackageJson.devDependencies?.[dependencyName],
+    `Missing desktop devDependency: ${dependencyName}`
+  );
 }
 
 console.log("verify-workspace-links: ok");

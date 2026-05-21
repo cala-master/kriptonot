@@ -11,6 +11,9 @@
 pnpm validate
 pnpm test
 pnpm manual:bootstrap
+pnpm app:typecheck
+pnpm app:build
+pnpm app:tauri:dev
 ```
 
 ## Expected Results
@@ -18,3 +21,5 @@ pnpm manual:bootstrap
 - validation reports all checks passed
 - contract and integration tests pass
 - manual bootstrap command prints the bootstrap checklist path
+- app typecheck and web build succeed
+- Tauri dev opens a window that reports bootstrap readiness

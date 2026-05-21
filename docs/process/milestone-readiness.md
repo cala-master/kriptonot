@@ -6,3 +6,4 @@ A milestone is ready for review when:
 - required docs exist and are current
 - manual validation steps can be followed locally
 - scope boundaries and exclusions remain explicit
+- any runnable app shell proves its startup status visibly to a human reviewer
