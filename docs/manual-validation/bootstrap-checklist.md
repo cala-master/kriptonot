@@ -5,3 +5,4 @@
 3. Run `pnpm manual:bootstrap`.
 4. Confirm the repository tree includes `apps`, `packages`, `tests`, `docs`, and `scripts/validation`.
 5. Confirm README and constitution describe the MVP exclusions.
+6. Confirm the local runbook documents the empty desktop shell commands.

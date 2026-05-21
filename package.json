@@ -13,6 +13,11 @@
     "test": "node --test tests/contract/*.test.mjs tests/integration/*.test.mjs",
     "test:contracts": "node --test tests/contract/*.test.mjs",
     "test:integration": "node --test tests/integration/*.test.mjs",
-    "manual:bootstrap": "node scripts/manual/print-bootstrap-runbook.mjs"
+    "manual:bootstrap": "node scripts/manual/print-bootstrap-runbook.mjs",
+    "app:dev": "pnpm --filter @kriptonot/desktop dev",
+    "app:build": "pnpm --filter @kriptonot/desktop build",
+    "app:typecheck": "pnpm --filter @kriptonot/desktop typecheck",
+    "app:tauri:dev": "pnpm --filter @kriptonot/desktop tauri dev",
+    "app:tauri:build": "pnpm --filter @kriptonot/desktop tauri build"
   }
 }

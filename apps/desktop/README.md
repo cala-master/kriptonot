@@ -1,9 +1,10 @@
 # @kriptonot/desktop
 
-This package will host the Tauri shell and React composition layer.
+Hosts the runnable Tauri shell, React composition layer, and bootstrap-only runtime wiring.
 
 Current scope:
 
-- reserve the application boundary
-- document ownership
-- provide a stable workspace target for future implementation
+- provide the empty desktop shell for the MVP
+- initialize the local SQLite runtime boundary
+- expose bootstrap readiness to the frontend
+- reserve future composition space for note features
