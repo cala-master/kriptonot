@@ -1,0 +1,27 @@
+lockfileVersion: '9.0'
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
+importers:
+
+  .: {}
+
+  apps/desktop: {}
+
+  packages/crypto-fragments: {}
+
+  packages/fragment-store: {}
+
+  packages/marker-parser: {}
+
+  packages/note-model: {}
+
+  packages/storage-sqlite: {}
+
+  packages/test-kit: {}
+
+  packages/ui-contracts: {}
+
+  packages/validation-schemas: {}

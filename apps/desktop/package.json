@@ -1,0 +1,6 @@
+{
+  "name": "@kriptonot/desktop",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Desktop composition boundary for the future Tauri + React application."
+}

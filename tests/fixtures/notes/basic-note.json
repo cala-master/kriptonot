@@ -1,0 +1,6 @@
+{
+  "id": "note-001",
+  "title": "Masked fragment example",
+  "body": "Normal text before [[masked:fragment-001]] normal text after.",
+  "fragmentIds": ["fragment-001"]
+}

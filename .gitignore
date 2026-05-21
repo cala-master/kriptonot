@@ -8,3 +8,12 @@ wheels/
 
 # Virtual environments
 .venv
+
+# Node and workspace artifacts
+node_modules/
+.pnpm-store/
+.turbo/
+coverage/
+
+# Editor and OS noise
+.DS_Store
