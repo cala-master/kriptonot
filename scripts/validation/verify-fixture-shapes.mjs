@@ -9,11 +9,15 @@ assert.equal(typeof noteFixture.id, "string");
 assert.equal(typeof noteFixture.title, "string");
 assert.equal(typeof noteFixture.body, "string");
 assert.ok(Array.isArray(noteFixture.fragmentIds));
-assert.ok(noteFixture.body.includes("[[masked:fragment-001]]"));
+assert.equal(typeof noteFixture.createdAt, "string");
+assert.equal(typeof noteFixture.updatedAt, "string");
+assert.ok(noteFixture.body.includes("[[masked:fragment-1]]"));
 
 assert.equal(typeof fragmentFixture.id, "string");
+assert.equal(typeof fragmentFixture.noteId, "string");
 assert.equal(typeof fragmentFixture.cipherText, "string");
-assert.equal(typeof fragmentFixture.previewMask, "string");
+assert.equal(typeof fragmentFixture.maskedValue, "string");
+assert.equal(fragmentFixture.noteId, noteFixture.id);
 assert.ok(noteFixture.fragmentIds.includes(fragmentFixture.id));
 
 assert.ok(!/^\[\[masked:[a-z0-9-]+\]\]$/.test(malformedMarker));
