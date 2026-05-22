@@ -1,18 +1,81 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { readFileSync } from "node:fs";
+import { createMaskedFragmentDraft } from "../../packages/fragment-store/src/index.ts";
+import { fixedSliceMask } from "../../packages/test-kit/src/index.ts";
 
-test("note and fragment fixtures agree on fragment references", () => {
-  const noteFixture = JSON.parse(readFileSync("tests/fixtures/notes/basic-note.json", "utf8"));
-  const fragmentFixture = JSON.parse(readFileSync("tests/fixtures/fragments/basic-fragment.json", "utf8"));
+test("createMaskedFragmentDraft replaces selected text with a marker and returns a fragment record", () => {
+  const result = createMaskedFragmentDraft({
+    noteId: "note-1",
+    noteBody: "Keep my pin safe",
+    selectionStart: 8,
+    selectionEnd: 11,
+    fragmentId: "fragment-1",
+    cipherText: "cipher-fragment-1",
+    maskedValue: fixedSliceMask()
+  });
 
-  assert.deepEqual(noteFixture.fragmentIds, [fragmentFixture.id]);
+  assert.equal(result.updatedBody, "Keep my [[masked:fragment-1]] safe");
+  assert.deepEqual(result.fragmentRecord, {
+    id: "fragment-1",
+    noteId: "note-1",
+    cipherText: "cipher-fragment-1",
+    maskedValue: fixedSliceMask()
+  });
 });
 
-test("fragment-store package documents fragment lifecycle ownership", () => {
-  const packageReadme = readFileSync("packages/fragment-store/README.md", "utf8");
-  const packageSource = readFileSync("packages/fragment-store/src/index.ts", "utf8");
+test("createMaskedFragmentDraft rejects reversed selection ranges", () => {
+  assert.throws(
+    () =>
+      createMaskedFragmentDraft({
+        noteId: "note-1",
+        noteBody: "Keep my pin safe",
+        selectionStart: 11,
+        selectionEnd: 8,
+        fragmentId: "fragment-1",
+        cipherText: "cipher-fragment-1",
+        maskedValue: fixedSliceMask()
+      }),
+    {
+      name: "RangeError",
+      message: "selectionStart must be less than or equal to selectionEnd"
+    }
+  );
+});
 
-  assert.ok(packageReadme.includes("fragment lifecycle"));
-  assert.ok(packageSource.includes("FragmentStoreContract"));
+test("createMaskedFragmentDraft rejects out-of-bounds selection ranges", () => {
+  assert.throws(
+    () =>
+      createMaskedFragmentDraft({
+        noteId: "note-1",
+        noteBody: "Keep my pin safe",
+        selectionStart: 8,
+        selectionEnd: 99,
+        fragmentId: "fragment-1",
+        cipherText: "cipher-fragment-1",
+        maskedValue: fixedSliceMask()
+      }),
+    {
+      name: "RangeError",
+      message: "selection range must be within note body bounds"
+    }
+  );
+});
+
+test("createMaskedFragmentDraft rejects non-integer selection ranges", () => {
+  assert.throws(
+    () =>
+      createMaskedFragmentDraft({
+        noteId: "note-1",
+        noteBody: "Keep my pin safe",
+        selectionStart: 8.5,
+        selectionEnd: 11,
+        fragmentId: "fragment-1",
+        cipherText: "cipher-fragment-1",
+        maskedValue: fixedSliceMask()
+      }),
+    {
+      name: "RangeError",
+      message: "selection range must use finite integer indexes"
+    }
+  );
 });
