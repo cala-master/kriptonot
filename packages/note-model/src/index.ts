@@ -3,10 +3,13 @@ export interface NoteRecord {
   title: string;
   body: string;
   fragmentIds: string[];
+  createdAt: string;
+  updatedAt: string;
 }
 
 export interface FragmentRecord {
   id: string;
+  noteId: string;
   cipherText: string;
-  previewMask: string;
+  maskedValue: string;
 }

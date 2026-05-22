@@ -1,21 +1,40 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { readFileSync } from "node:fs";
+import { parseMaskedMarkers, formatMaskedMarker } from "../../packages/marker-parser/src/index.ts";
 
-const validMarkerPattern = /^\[\[masked:[a-z0-9-]+\]\]$/;
+test("parseMaskedMarkers preserves text and extracts marker references", () => {
+  const body = "alpha [[masked:fragment-1]] omega";
+  const result = parseMaskedMarkers(body);
 
-test("marker documentation and note fixture use the approved marker format", () => {
-  const markerDoc = readFileSync("docs/validation/marker-format.md", "utf8");
-  const noteFixture = JSON.parse(readFileSync("tests/fixtures/notes/basic-note.json", "utf8"));
-  const match = noteFixture.body.match(/\[\[masked:[a-z0-9-]+\]\]/);
-
-  assert.ok(markerDoc.includes("[[masked:fragment-id]]"));
-  assert.ok(match);
-  assert.ok(validMarkerPattern.test(match[0]));
+  assert.deepEqual(result.references, [
+    {
+      fragmentId: "fragment-1",
+      rawMarker: "[[masked:fragment-1]]",
+      start: 6,
+      end: 27
+    }
+  ]);
+  assert.equal(result.plainText, body);
 });
 
-test("malformed marker fixtures are rejected by the approved marker regex", () => {
-  const malformedMarker = readFileSync("tests/fixtures/malformed-inputs/invalid-marker.txt", "utf8").trim();
+test("formatMaskedMarker creates the approved marker shape", () => {
+  assert.equal(formatMaskedMarker("fragment-1"), "[[masked:fragment-1]]");
+});
 
-  assert.equal(validMarkerPattern.test(malformedMarker), false);
+test("parseMaskedMarkers reports malformed content without deleting plain text", () => {
+  const malformed = "alpha [[masked fragment-1]] omega";
+  const result = parseMaskedMarkers(malformed);
+
+  assert.equal(result.references.length, 0);
+  assert.equal(result.errors.length, 1);
+  assert.equal(result.plainText, malformed);
+});
+
+test("parseMaskedMarkers reports malformed marker-like content alongside valid markers", () => {
+  const mixed = "alpha [[masked:fragment-1]] beta [[masked fragment-2]] omega";
+  const result = parseMaskedMarkers(mixed);
+
+  assert.equal(result.references.length, 1);
+  assert.equal(result.errors.length, 1);
+  assert.equal(result.plainText, mixed);
 });

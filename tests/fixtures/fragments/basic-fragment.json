@@ -1,5 +1,6 @@
 {
-  "id": "fragment-001",
-  "cipherText": "ciphertext-placeholder",
-  "previewMask": "********"
+  "id": "fragment-1",
+  "noteId": "note-1",
+  "cipherText": "cipher-fragment-1",
+  "maskedValue": "ฏซฉฮ"
 }
