@@ -1,6 +1,8 @@
 {
-  "id": "note-001",
-  "title": "Masked fragment example",
-  "body": "Normal text before [[masked:fragment-001]] normal text after.",
-  "fragmentIds": ["fragment-001"]
+  "id": "note-1",
+  "title": "Personal note",
+  "body": "Normal text before [[masked:fragment-1]] normal text after.",
+  "fragmentIds": ["fragment-1"],
+  "createdAt": "2026-05-22T10:00:00.000Z",
+  "updatedAt": "2026-05-22T10:00:00.000Z"
 }
