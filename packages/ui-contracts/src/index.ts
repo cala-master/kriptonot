@@ -1,10 +1,12 @@
 export interface MaskedFragmentViewState {
   fragmentId: string;
-  isLocked: boolean;
+  isLocked: true;
   displayValue: string;
 }
 
-export interface RevealMaskedFragmentAction {
-  fragmentId: string;
-  interaction: "click" | "unlock";
+export interface NoteEditorSnapshot {
+  noteId: string;
+  title: string;
+  body: string;
+  fragments: MaskedFragmentViewState[];
 }
